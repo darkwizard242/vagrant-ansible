@@ -13,7 +13,7 @@ env:
     - OS_ARCH: linux_amd64
     - BUILDSCRIPT: build.json
   jobs:
-    - BUILDSCRIPT: ubuntu-18.04
+    - PATH_TO_BUILDSCRIPT: ubuntu-18.04
 
 
 before_install:
@@ -37,4 +37,4 @@ script:
   - sudo ./$BUILDER --version
   - cd ${PATH_TO_BUILDSCRIPT}
   - sudo ../$BUILDER validate ${BUILDSCRIPT}
-  - sudo ../$BUILD build ${BUILDSCRIPT}
+  - sudo ../$BUILDER build ${BUILDSCRIPT}
