@@ -3,17 +3,20 @@
 BUILDSCRIPT_MASTER="build.json"
 BUILDSCRIPT_NON_MASTER="template-branch-others.json"
 
-
-if [ "${TRAVIS_BRANCH}" = "master" ];
-then
-  echo -e "\nBranch is:\t${TRAVIS_BRANCH}"
-else
+build_template () {
   echo -e "\nBranch is: ${TRAVIS_BRANCH}"
-  echo -e "\Box is: ${BOX}"
-  echo -e "\nPacker template file is: ${BUILDSCRIPT_NON_MASTER}"
+  echo -e "\nBox is: ${BOX}"
+  echo -e "\nPacker template file is: $1"
   cd ${BOX}
-  echo -e "\nValidating packer template file:\t${BUILDSCRIPT_NON_MASTER}"
-  ../${BUILDER} validate ${BUILDSCRIPT_NON_MASTER}
-  echo -e "\nRunning packer build for template file:\t${BUILDSCRIPT_NON_MASTER}"
-  sudo ../${BUILDER} build -timestamp-ui -color=false ${BUILDSCRIPT_NON_MASTER}
+  echo -e "\nValidating packer template file: $1"
+  ../${BUILDER} validate $1
+  echo -e "\nRunning packer build for template file: $1"
+  sudo ../${BUILDER} build -timestamp-ui -color=false $1
+}
+
+if [ "$(git branch --show-current)" = "master" ];
+then
+  build_template ${BUILDSCRIPT_MASTER}
+else
+  build_template ${BUILDSCRIPT_NON_MASTER}
 fi
