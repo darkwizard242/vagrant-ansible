@@ -1,4 +1,8 @@
 {
+   "variables":
+     {
+       "box": ""
+     },
     "builders":
       [
         {
