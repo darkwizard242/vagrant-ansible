@@ -37,4 +37,4 @@ script:
   - sudo ./$BUILDER --version
   - cd ${PATH_TO_BUILDSCRIPT}
   - sudo ../$BUILDER validate ${BUILDSCRIPT}
-  - travis_wait sudo ../$BUILDER build ${BUILDSCRIPT}
+  - sudo ../$BUILDER build ${BUILDSCRIPT}
