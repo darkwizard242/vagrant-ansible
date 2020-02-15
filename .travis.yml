@@ -9,9 +9,8 @@ python:
 env:
   global:
     - BUILDER: packer
-    - BUILDER_VERSION: 1.5.1
+    - BUILDER_VERSION: 1.5.2
     - OS_ARCH: linux_amd64
-    - BUILDSCRIPT: build.json
   jobs:
     - PATH_TO_BUILDSCRIPT: ubuntu-18.04
 
@@ -36,6 +35,3 @@ before_script:
 script:
   - sudo ./$BUILDER --version
   - sudo ./ci-support.sh
-  # - cd ${PATH_TO_BUILDSCRIPT}
-  # - sudo ../$BUILDER validate ${BUILDSCRIPT}
-  # - travis_wait sudo ../$BUILDER build ${BUILDSCRIPT}
