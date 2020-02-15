@@ -1,0 +1,3 @@
+ubuntu*/output*
+ubuntu*/packer_cache
+ubuntu*/vagrant*
