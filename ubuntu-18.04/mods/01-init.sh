@@ -15,7 +15,7 @@ usermod -aG sudo vagrant
 # Disable daily apt unattended updates.
 echo 'APT::Periodic::Enable "0";' >> /etc/apt/apt.conf.d/10periodic
 
-DEBIAN_FRONTEND=non-interactive apt-get update -y
+DEBIAN_FRONTEND=non-interactive apt-get update
 
 # Install necessary libraries for guest additions and Vagrant NFS Share
 libraries="linux-headers-$(uname -r) build-essential dkms nfs-common"
@@ -31,7 +31,7 @@ do
 done
 
 # Install necessary dependencies
-dependencies="curl wget tmux xvfb vim inxi screenfetch tree sysstat stress shellcheck"
+dependencies="curl wget xvfb inxi tree"
 for dependency in $dependencies;
 do
   if dpkg -s "$dependency" &> /dev/null;
