@@ -6,7 +6,6 @@
         "provider": "virtualbox",
         "add_force": true,
         "type": "vagrant",
-        "ssh_username": "vagrant",
         "output_dir": "artifacts-box"
       }
     ],
