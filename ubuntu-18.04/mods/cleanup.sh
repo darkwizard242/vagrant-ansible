@@ -19,10 +19,10 @@ rm -fv /home/vagrant/.bash_history
 find /var/log -type f | while read f; do echo -ne '' > $f; done;
 
 # Whiteout root
-count=`df --sync -kP / | tail -n1  | awk -F ' ' '{print $4}'`;
-let count--
-dd if=/dev/zero of=/tmp/whitespace bs=1024 count=$count;
-rm -v /tmp/whitespace;
+# count=`df --sync -kP / | tail -n1  | awk -F ' ' '{print $4}'`;
+# let count--
+# dd if=/dev/zero of=/tmp/whitespace bs=1024 count=$count;
+# rm -v /tmp/whitespace;
 
 # Whiteout /boot
 # count=`df --sync -kP /boot | tail -n1 | awk -F ' ' '{print $4}'`;
