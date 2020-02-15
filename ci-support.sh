@@ -2,7 +2,7 @@
 set -e
 
 BUILDSCRIPT_MASTER="build.json"
-BUILDSCRIPT_NON_MASTER="template-branch-master.json"
+BUILDSCRIPT_NON_MASTER="template-branch-others.json"
 
 
 if [ "${TRAVIS_BRANCH}" = "master" ];
