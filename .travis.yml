@@ -9,7 +9,7 @@ python:
 env:
   global:
     - BUILDER: packer
-    - BUILDER_VERSION: 1.5.4
+    - BUILDER_VERSION: 1.5.1
     - OS_ARCH: linux_amd64
   jobs:
     - BOX: ubuntu-18.04
