@@ -9,7 +9,7 @@ python:
 env:
   global:
     - BUILDER: packer
-    - BUILDER_VERSION: 1.5.2
+    - BUILDER_VERSION: 1.5.4
     - OS_ARCH: linux_amd64
   jobs:
     - PATH_TO_BUILDSCRIPT: ubuntu-18.04
@@ -29,6 +29,8 @@ install:
 
 
 before_script:
+  - wget -v -O vagrant.zip https://releases.hashicorp.com/vagrant/2.2.7/vagrant_2.2.7_${OS_ARCH}.zip
+  - sudo unzip vagrant.zip -d /usr/local/bin
   - wget -v -O ${BUILDER}.zip https://releases.hashicorp.com/${BUILDER}/${BUILDER_VERSION}/${BUILDER}_${BUILDER_VERSION}_${OS_ARCH}.zip
   - unzip $BUILDER.zip -d .
 
