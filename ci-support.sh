@@ -2,9 +2,11 @@
 
 BUILDSCRIPT_MASTER="build.json"
 BUILDSCRIPT_NON_MASTER="template-branch-others.json"
+CURRENT_BRANCH=$(git branch --show-current)
+#VERSION=$(date +"%m%d%y%H%M%S")
 
 build_template () {
-  echo -e "\nBranch is: ${TRAVIS_BRANCH}"
+  echo -e "\nBranch is: ${CURRENT_BRANCH}"
   echo -e "\nBox is: ${BOX}"
   echo -e "\nPacker template file is: $1"
   cd ${BOX}
@@ -14,7 +16,7 @@ build_template () {
   sudo ../${BUILDER} build -timestamp-ui -color=false -force $1
 }
 
-if [ "$(git branch --show-current)" = "master" ];
+if [ "${CURRENT_BRANCH}" = "master" ];
 then
   build_template ${BUILDSCRIPT_MASTER}
 else
