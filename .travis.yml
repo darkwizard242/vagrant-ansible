@@ -35,6 +35,7 @@ before_script:
 
 script:
   - sudo ./$BUILDER --version
+  - sudo ./ci-support.sh
   - cd ${PATH_TO_BUILDSCRIPT}
   - sudo ../$BUILDER validate ${BUILDSCRIPT}
   - sudo ../$BUILDER build ${BUILDSCRIPT}
