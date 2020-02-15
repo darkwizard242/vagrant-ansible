@@ -36,6 +36,6 @@ before_script:
 script:
   - sudo ./$BUILDER --version
   - sudo ./ci-support.sh
-  - cd ${PATH_TO_BUILDSCRIPT}
-  - sudo ../$BUILDER validate ${BUILDSCRIPT}
-  - travis_wait sudo ../$BUILDER build ${BUILDSCRIPT}
+  # - cd ${PATH_TO_BUILDSCRIPT}
+  # - sudo ../$BUILDER validate ${BUILDSCRIPT}
+  # - travis_wait sudo ../$BUILDER build ${BUILDSCRIPT}
