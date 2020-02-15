@@ -13,6 +13,7 @@ else
   echo -e "\nPath is: ${PATH_TO_BUILDSCRIPT}"
   echo -e "\nPacker template file is: ${BUILDSCRIPT_NON_MASTER}"
   cd ${PATH_TO_BUILDSCRIPT}
+  pwd
   echo -e "\nValidating packer template file: ${BUILDSCRIPT_NON_MASTER}"
   ../$BUILDER validate ${BUILDSCRIPT_NON_MASTER}
   echo -e "\nRunning packer build for template file: ${BUILDSCRIPT_NON_MASTER}"
