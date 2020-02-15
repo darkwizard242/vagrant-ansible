@@ -12,7 +12,7 @@ env:
     - BUILDER_VERSION: 1.5.4
     - OS_ARCH: linux_amd64
   jobs:
-    - PATH_TO_BUILDSCRIPT: ubuntu-18.04
+    - BOX: ubuntu-18.04
 
 
 before_install:
