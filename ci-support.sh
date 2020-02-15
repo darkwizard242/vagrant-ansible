@@ -13,7 +13,7 @@ build_template () {
   echo -e "\nValidating packer template file: $1"
   ../${BUILDER} validate $1
   echo -e "\nRunning packer build for template file: $1"
-  sudo ../${BUILDER} build -timestamp-ui -color=false -force $1
+  sudo ../${BUILDER} build -timestamp-ui -color=false -force -var 'box=${BOX}' $1
 }
 
 if [ "${TRAVIS_BRANCH}" = "master" ];
