@@ -1,3 +1,5 @@
-ubuntu*/output*
-ubuntu*/packer_cache
-ubuntu*/vagrant*
+*/output*
+*/packer_cache*
+*/vagrant*
+*/artifact*
+*/*.log*
