@@ -7,7 +7,7 @@
         "add_force": true,
         "type": "vagrant",
         "ssh_username": "boxuser",
-        "ssh_passowrd": "password",
+        "ssh_password": "password",
         "output_dir": "artifacts-box"
       }
     ],
