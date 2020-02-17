@@ -48,27 +48,18 @@ add_ansible_repo () {
 
 ansible_installer () {
   DEBIAN_FRONTEND=non-interactive apt-get install ${package1} -y
+  # echo -e "\nSetting remote_tmp to /tmp dir in /etc/ansible/ansible.cfg\n"
+  # sed -i 's/^#remote_tmp.*$/remote_tmp\ \=\ \/tmp/' /etc/ansible/ansible.cfg
 }
 
 ansible_uninstaller () {
   DEBIAN_FRONTEND=non-interactive apt-get purge ${package1} -y
 }
 
-ansible_verify () {
-  if ${package1} localhost -m shell -a "hostname";
-    then
-      echo -e "\nExit status for ${package1} command returned back with a successful exit code.\n"
-    else
-      echo -e "\nThere was an issue with the execution of ${package1} command." && echo -e
-      exit 2
-  fi
-}
-
 case "$1" in
   check)
     check_os
     check_if_ansible_installed
-    ansible_verify
     ;;
   install)
     check_os
@@ -77,7 +68,6 @@ case "$1" in
     echo -e "\nInstallation beginning for:\t${package1}\n"
     add_ansible_repo
     ansible_installer
-    ansible_verify
     ;;
   uninstall)
     check_os
