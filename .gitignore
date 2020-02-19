@@ -1,0 +1,5 @@
+*/output*
+*/packer_cache*
+*/vagrant*
+*/artifact*
+*/*.log*

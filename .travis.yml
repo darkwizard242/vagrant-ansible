@@ -1,0 +1,39 @@
+---
+os: linux
+dist: bionic
+
+language: python
+python:
+  - "3.7"
+
+env:
+  global:
+    - BUILDER: packer
+    - BUILDER_VERSION: 1.5.1
+    - OS_ARCH: linux_amd64
+  jobs:
+    - BOX: ubuntu-1804
+
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install wget unzip software-properties-common linux-headers-5.0.0-1026-gcp -y
+
+install:
+  - echo -e "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian bionic contrib" | sudo tee -a /etc/apt/sources.list.d/virtualbox.list
+  - wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+  - wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+  - sudo apt-get update
+  - sudo apt-get install virtualbox-6.1 -y
+  - sudo /sbin/vboxconfig
+
+
+before_script:
+  - wget -v -O vagrant.zip https://releases.hashicorp.com/vagrant/2.2.7/vagrant_2.2.7_${OS_ARCH}.zip
+  - sudo unzip vagrant.zip -d /usr/local/bin
+  - wget -v -O ${BUILDER}.zip https://releases.hashicorp.com/${BUILDER}/${BUILDER_VERSION}/${BUILDER}_${BUILDER_VERSION}_${OS_ARCH}.zip
+  - unzip $BUILDER.zip -d .
+
+script:
+  - sudo ./$BUILDER --version
+  - sudo ./ci-support.sh
