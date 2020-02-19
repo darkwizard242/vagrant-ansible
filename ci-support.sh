@@ -17,6 +17,7 @@ build_template () {
 
 if [[ "${TRAVIS_BRANCH}" = "master" && ${TRAVIS_PULL_REQUEST_SLUG} = "" ]];
 then
+  sudo export PACKER_LOG=1
   build_template ${BUILDSCRIPT_MASTER}
 elif [ "${TRAVIS_PULL_REQUEST_BRANCH}" = "master" ];
 then
