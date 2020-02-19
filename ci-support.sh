@@ -1,8 +1,7 @@
 #!/bin/bash -e
 
-BUILDSCRIPT_MASTER="build.json"
+BUILDSCRIPT_MASTER="template-branch-master.json"
 BUILDSCRIPT_NON_MASTER="template-branch-others.json"
-# CURRENT_BRANCH=$(git branch --show-current)
 #VERSION=$(date +"%m%d%y%H%M%S")
 
 build_template () {
@@ -16,9 +15,11 @@ build_template () {
   sudo ../${BUILDER} build -timestamp-ui -color=false -force -var 'box=${BOX}' $1
 }
 
-if [ "${TRAVIS_BRANCH}" = "master" ];
+if [ "${TRAVIS_BRANCH}" = "master" && ${TRAVIS_PULL_REQUEST_SLUG} = "" ];
 then
   build_template ${BUILDSCRIPT_MASTER}
+elif [ "${TRAVIS_PULL_REQUEST_BRANCH}" = "master" ];
+  build_template ${BUILDSCRIPT_NON_MASTER}
 else
   build_template ${BUILDSCRIPT_NON_MASTER}
 fi
