@@ -19,6 +19,7 @@ if [ "${TRAVIS_BRANCH}" = "master" && ${TRAVIS_PULL_REQUEST_SLUG} = "" ];
 then
   build_template ${BUILDSCRIPT_MASTER}
 elif [ "${TRAVIS_PULL_REQUEST_BRANCH}" = "master" ];
+then
   build_template ${BUILDSCRIPT_NON_MASTER}
 else
   build_template ${BUILDSCRIPT_NON_MASTER}
