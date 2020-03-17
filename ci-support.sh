@@ -2,7 +2,7 @@
 
 BUILDSCRIPT_MASTER="template-branch-master.json"
 BUILDSCRIPT_NON_MASTER="template-branch-others.json"
-#VERSION=$(date +"%m%d%y%H%M%S")
+# VERSION=$(date +"%Y%m%d%H%M%S")
 
 build_template () {
   echo -e "\nBranch is: ${TRAVIS_BRANCH}"
@@ -12,7 +12,7 @@ build_template () {
   echo -e "\nValidating packer template file: $1"
   ../"${BUILDER}" validate "$1"
   echo -e "\nRunning packer build for template file: $1"
-  sudo PACKER_LOG=1 ../"${BUILDER}" build -timestamp-ui -color=false -force -var 'box=${BOX}' "$1"
+  sudo PACKER_LOG=1 ../"${BUILDER}" build -timestamp-ui -color=false -force "$1"
 }
 
 if [[ "${TRAVIS_BRANCH}" = "master" && ${TRAVIS_PULL_REQUEST_SLUG} = "" ]];
