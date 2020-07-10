@@ -1,0 +1,94 @@
+{
+   "variables":{
+      "version":""
+   },
+   "builders":[
+      {
+         "type":"virtualbox-iso",
+         "boot_command":[
+            "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+            "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+            "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+            "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+            "/install/vmlinuz<wait>",
+            " auto<wait>",
+            " console-setup/ask_detect=false<wait>",
+            " console-setup/layoutcode=us<wait>",
+            " console-setup/modelcode=pc105<wait>",
+            " debconf/frontend=noninteractive<wait>",
+            " debian-installer=en_US<wait>",
+            " fb=false<wait>",
+            " initrd=/install/initrd.gz<wait>",
+            " kbd-chooser/method=us<wait>",
+            " keyboard-configuration/layout=USA<wait>",
+            " keyboard-configuration/variant=USA<wait>",
+            " locale=en_US<wait>",
+            " netcfg/get_domain=ubuntu1604.com<wait>",
+            " netcfg/get_hostname=devops<wait>",
+            " grub-installer/bootdev=/dev/sda<wait>",
+            " noapic<wait>",
+            " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<wait>",
+            " -- <wait>",
+            "<enter><wait>"
+         ],
+         "boot_wait":"10s",
+         "disk_size":61440,
+         "guest_os_type":"Ubuntu_64",
+         "headless":true,
+         "http_directory":"http",
+         "iso_urls":[
+            "https://releases.ubuntu.com/16.04/ubuntu-16.04.6-server-amd64.iso"
+         ],
+         "iso_checksum_type":"sha256",
+         "iso_checksum":"16afb1375372c57471ea5e29803a89a5a6bd1f6aabea2e5e34ac1ab7eb9786ac",
+         "ssh_username":"vagrant",
+         "ssh_password":"password",
+         "ssh_port":22,
+         "ssh_wait_timeout":"2000s",
+         "shutdown_command":"echo 'vagrant'|sudo -S shutdown -P now",
+         "guest_additions_path":"VBoxGuestAdditions_{{.Version}}.iso",
+         "virtualbox_version_file":".vbox_version",
+         "vm_name":"ansibleubuntu1604",
+         "vboxmanage":[
+            [
+               "modifyvm",
+               "{{.Name}}",
+               "--memory",
+               "2560"
+            ],
+            [
+               "modifyvm",
+               "{{.Name}}",
+               "--cpus",
+               "2"
+            ]
+         ]
+      }
+   ],
+   "provisioners":[
+      {
+         "type":"file",
+         "source":"mods",
+         "destination":"/home/vagrant/"
+      },
+      {
+         "type":"shell",
+         "execute_command":"echo 'password' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+         "inline":[
+            "sudo apt-get update",
+            "sudo apt-get upgrade -y",
+            "/home/vagrant/mods/01-init.sh",
+            "/home/vagrant/mods/02-vagrant_init.sh",
+            "/home/vagrant/mods/03-ansible.sh install",
+            "mods/cleanup.sh"
+         ]
+      }
+   ],
+   "post-processors":[
+      {
+         "type":"vagrant",
+         "compression_level":"9",
+         "output":"output/ansibleubuntu1604.box"
+      }
+   ]
+}
