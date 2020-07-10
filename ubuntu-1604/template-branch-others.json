@@ -6,9 +6,10 @@
       {
          "type":"virtualbox-iso",
          "boot_command":[
-            "<esc><wait>",
-            "<esc><wait>",
-            "<enter><wait>",
+            "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+            "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+            "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+            "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
             "/install/vmlinuz<wait>",
             " auto<wait>",
             " console-setup/ask_detect=false<wait>",
@@ -31,7 +32,7 @@
             "<enter><wait>"
          ],
          "boot_wait":"10s",
-         "disk_size":40960,
+         "disk_size":61440,
          "guest_os_type":"Ubuntu_64",
          "headless":true,
          "http_directory":"http",
@@ -43,7 +44,7 @@
          "ssh_username":"vagrant",
          "ssh_password":"password",
          "ssh_port":22,
-         "ssh_wait_timeout":"12000s",
+         "ssh_wait_timeout":"2000s",
          "shutdown_command":"echo 'vagrant'|sudo -S shutdown -P now",
          "guest_additions_path":"VBoxGuestAdditions_{{.Version}}.iso",
          "virtualbox_version_file":".vbox_version",
