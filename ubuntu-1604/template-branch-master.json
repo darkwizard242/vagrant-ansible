@@ -8,9 +8,10 @@
       {
          "type":"virtualbox-iso",
          "boot_command":[
-            "<esc><wait>",
-            "<esc><wait>",
-            "<enter><wait>",
+            "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+            "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+            "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+            "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
             "/install/vmlinuz<wait>",
             " auto<wait>",
             " console-setup/ask_detect=false<wait>",
