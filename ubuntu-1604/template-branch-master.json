@@ -34,7 +34,7 @@
             "<enter><wait>"
          ],
          "boot_wait":"10s",
-         "disk_size":40960,
+         "disk_size":61440,
          "guest_os_type":"Ubuntu_64",
          "headless":true,
          "http_directory":"http",
@@ -45,7 +45,7 @@
          "ssh_username":"vagrant",
          "ssh_password":"password",
          "ssh_port":22,
-         "ssh_wait_timeout":"12000s",
+         "ssh_wait_timeout":"2000s",
          "shutdown_command":"echo 'vagrant'|sudo -S shutdown -P now",
          "guest_additions_path":"VBoxGuestAdditions_{{.Version}}.iso",
          "virtualbox_version_file":".vbox_version",
