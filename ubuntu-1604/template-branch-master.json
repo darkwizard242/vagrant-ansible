@@ -8,9 +8,10 @@
       {
          "type":"virtualbox-iso",
          "boot_command":[
-            "<esc><wait>",
-            "<esc><wait>",
-            "<enter><wait>",
+            "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+            "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+            "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+            "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
             "/install/vmlinuz<wait>",
             " auto<wait>",
             " console-setup/ask_detect=false<wait>",
@@ -33,19 +34,18 @@
             "<enter><wait>"
          ],
          "boot_wait":"10s",
-         "disk_size":40960,
+         "disk_size":61440,
          "guest_os_type":"Ubuntu_64",
          "headless":true,
          "http_directory":"http",
          "iso_urls":[
             "https://releases.ubuntu.com/16.04/ubuntu-16.04.6-server-amd64.iso"
          ],
-         "iso_checksum_type":"sha256",
-         "iso_checksum":"16afb1375372c57471ea5e29803a89a5a6bd1f6aabea2e5e34ac1ab7eb9786ac",
+         "iso_checksum":"sha256:16afb1375372c57471ea5e29803a89a5a6bd1f6aabea2e5e34ac1ab7eb9786ac",
          "ssh_username":"vagrant",
          "ssh_password":"password",
          "ssh_port":22,
-         "ssh_wait_timeout":"12000s",
+         "ssh_wait_timeout":"2000s",
          "shutdown_command":"echo 'vagrant'|sudo -S shutdown -P now",
          "guest_additions_path":"VBoxGuestAdditions_{{.Version}}.iso",
          "virtualbox_version_file":".vbox_version",
