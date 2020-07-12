@@ -14,6 +14,7 @@ env:
   jobs:
     - BOX: ubuntu-1804
     - BOX: ubuntu-1604
+    - BOX: debian-10
 
 
 before_install:
