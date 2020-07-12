@@ -14,6 +14,7 @@ env:
   jobs:
     - BOX: ubuntu-1804
     - BOX: ubuntu-1604
+    - BOX: debian-10
 
 
 before_install:
@@ -29,7 +30,7 @@ install:
 
 
 before_script:
-  - wget -v -O vagrant.zip https://releases.hashicorp.com/vagrant/2.2.7/vagrant_2.2.7_${OS_ARCH}.zip
+  - wget -v -O vagrant.zip https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_${OS_ARCH}.zip
   - sudo unzip vagrant.zip -d /usr/local/bin
   - wget -v -O ${BUILDER}.zip https://releases.hashicorp.com/${BUILDER}/${BUILDER_VERSION}/${BUILDER}_${BUILDER_VERSION}_${OS_ARCH}.zip
   - unzip $BUILDER.zip -d .
