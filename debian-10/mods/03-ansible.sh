@@ -62,9 +62,11 @@ ansible_uninstaller () {
 
 case "$1" in
   check)
+    check_os
     check_if_ansible_installed
     ;;
   install)
+    check_os
     setup_dependencies
     check_if_ansible_installed
     echo -e "\nInstallation beginning for:\t${package1}\n"
@@ -72,6 +74,7 @@ case "$1" in
     ansible_installer
     ;;
   uninstall)
+    check_os
     echo -e "\nPurging beginning for:\t${package1}\n"
     ansible_uninstaller
     ;;
