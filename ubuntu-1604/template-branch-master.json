@@ -2,7 +2,7 @@
    "variables":{
       "cloud_token":"{{ env `VAGRANT_CLOUD_TOKEN` }}",
       "version":"1.0.{{timestamp}}",
-      "release_description":"Ubuntu 16.04 Vagrant box with Ansible pre-installed and ready to use."
+      "release_description":"Latest kernel and package updates."
    },
    "builders":[
       {
