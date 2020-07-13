@@ -25,7 +25,7 @@
          "boot_wait":"10s",
          "disk_size":40960,
          "guest_os_type":"Debian_64",
-         "headless":false,
+         "headless":true,
          "http_directory":"http",
          "iso_urls":[
             "https://cdimage.debian.org/cdimage/archive/9.12.0/amd64/iso-cd/debian-9.12.0-amd64-netinst.iso"
