@@ -15,6 +15,7 @@ env:
     - BOX: ubuntu-1804
     - BOX: ubuntu-1604
     - BOX: debian-10
+    - BOX: debian-9
 
 
 before_install:
