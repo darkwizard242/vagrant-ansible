@@ -55,13 +55,13 @@
                "modifyvm",
                "{{.Name}}",
                "--memory",
-               "2560"
+               "2048"
             ],
             [
                "modifyvm",
                "{{.Name}}",
                "--cpus",
-               "2"
+               "1"
             ]
          ]
       }
