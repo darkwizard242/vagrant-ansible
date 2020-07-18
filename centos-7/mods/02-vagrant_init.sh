@@ -1,26 +1,18 @@
 #!/bin/bash -eu
 
-# Mod for setting up vagrant keys.
+yum install kernel-devel -y
 
-mkdir -v ~/.ssh
-chmod -v 700 ~/.ssh
-cd ~/.ssh
-# https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub
-wget --no-check-certificate 'https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub' -O authorized_keys
-chmod -v 600 ~/.ssh/authorized_keys
-chown -Rv vagrant ~/.ssh
 
+if systemctl list-unit-files | grep -q dkms.service; then
+  sudo systemctl start dkms
+  sudo systemctl enable dkms
+fi
 
 # Custom VBoxAdditions mount and setup required by vagrant
 mkdir -pv /mnt/virtualbox
-mount -v -o loop /home/vagrant/VBoxGuest*.iso /mnt/virtualbox
-sh /mnt/virtualbox/VBoxLinuxAdditions.run
+sudo mount -v -o loop,ro /home/vagrant/VBoxGuest*.iso /mnt/virtualbox
+sudo sh /mnt/virtualbox/VBoxLinuxAdditions.run --nox11 || :
+/sbin/rcvboxadd quicksetup all
 ln -vs /opt/VBoxGuestAdditions-*/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
-umount -v /mnt/virtualbox
+sudo umount -v /mnt/virtualbox
 rm -rfv /home/vagrant/VBoxGuest*.iso
-
-cat /home/vagrant/.ssh/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys
-
-mkdir -pv /home/vagrant/.ansible/tmp
-chown -Rv vagrant:vagrant /home/vagrant/.ansible/tmp
-# chmod -v -R 777 /home/vagrant/.ansible/tmp
