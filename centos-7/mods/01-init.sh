@@ -43,4 +43,4 @@ do
 done
 
 # Add vagrant user to sudo group
-usermod -aG sudo vagrant
+# usermod -aG sudo vagrant
