@@ -6,17 +6,30 @@ yum update -y
 yum upgrade -y
 
 
-# Add vagrant user to sudoers.
-{
-  echo "vagrant ALL=(ALL) NOPASSWD: ALL"
-} >> /etc/sudoers
+# Apply Vagrant public key.
+echo "Applying Vagrant public key"
+sudo mkdir -pv /home/vagrant/.ssh
+sudo curl -fsSLo /home/vagrant/.ssh/authorized_keys https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub
 
-sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
+# Change owner and group on SSH authorized keys file for vagrant user
+echo "Setting appropriate permissions and ownership for /home/vagrant/.ssh"
+sudo chown -Rv vagrant:vagrant /home/vagrant/.ssh
+sudo chmod -v 700 /home/vagrant/.ssh
+sudo chmod -v 600 /home/vagrant/.ssh/authorized_keys
+
+
+# Configure Vagrant for no password sudo
+echo "Configuring Vagrant for passwordless sudo"
+sudo cat > /etc/sudoers.d/vagrant <<'EOF'
+Defaults:vagrant !requiretty
+vagrant ALL=(ALL) NOPASSWD: ALL
+EOF
+sudo chmod -v 440 /etc/sudoers.d/vagrant
 
 
 # Install necessary libraries for guest additions and Vagrant NFS Share
 # removed linux-headers-$(uname -r) nfs-common build-essentials from libraries list
-libraries="sudo deltarpm epel-release initscripts dkms"
+libraries="deltarpm epel-release initscripts dkms"
 for library in $libraries;
 do
   if yum list installed "$library" &> /dev/null;
