@@ -13,7 +13,7 @@ sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
 
 
 # Install necessary libraries for guest additions and Vagrant NFS Share
-# took out linux-headers-$(uname -r) from libraries list
+# removed linux-headers-$(uname -r) nfs-common build-essentials from libraries list
 libraries="dkms"
 for library in $libraries;
 do
@@ -27,7 +27,8 @@ do
 done
 
 # Install necessary dependencies
-dependencies="curl wget xvfb inxi tree dirmngr sudo"
+# took out xvfb from dependencies list dirmngr
+dependencies="curl wget inxi tree sudo"
 for dependency in $dependencies;
 do
   if yum list installed "$dependency" &> /dev/null;
