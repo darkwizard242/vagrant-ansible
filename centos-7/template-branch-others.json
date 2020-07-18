@@ -51,12 +51,10 @@
          "type":"shell",
          "execute_command":"echo 'password' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
          "inline":[
-            "sudo yum update -y",
-            "sudo yum upgrade -y",
-            "/home/vagrant/mods/01-init.sh",
-            "/home/vagrant/mods/02-vagrant_init.sh",
-            "/home/vagrant/mods/03-ansible.sh install",
-            "mods/cleanup.sh"
+            "sudo /home/vagrant/mods/01-init.sh",
+            "sudo /home/vagrant/mods/02-vagrant_init.sh",
+            "sudo /home/vagrant/mods/03-ansible.sh install",
+            "sudo /home/vagrant/mods/cleanup.sh"
          ]
       }
    ],
