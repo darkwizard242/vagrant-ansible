@@ -1,7 +1,7 @@
 #!/bin/bash -eu
 
 # Remove all yum cache
-yum cache all
+yum clean all
 
 # Zero free space to aid VM compression
 # dd if=/dev/zero of=/EMPTY bs=1M
