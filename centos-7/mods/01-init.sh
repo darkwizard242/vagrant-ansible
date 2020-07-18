@@ -2,6 +2,8 @@
 
 # Shellcheck fixes for: SC2006, SC2086, SC2129, SC2181
 
+yum update
+
 # Add vagrant user to sudoers.
 {
   echo "vagrant ALL=(ALL) NOPASSWD: ALL"
@@ -9,10 +11,6 @@
 
 sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
 
-# Add vagrant user to sudo group
-usermod -aG sudo vagrant
-
-yum update
 
 # Install necessary libraries for guest additions and Vagrant NFS Share
 libraries="linux-headers-$(uname -r) build-essential dkms nfs-common"
@@ -28,7 +26,7 @@ do
 done
 
 # Install necessary dependencies
-dependencies="curl wget xvfb inxi tree dirmngr"
+dependencies="curl wget xvfb inxi tree dirmngr sudo"
 for dependency in $dependencies;
 do
   if yum list installed "$dependency" &> /dev/null;
@@ -39,3 +37,6 @@ do
       yum install "$dependency" -y
   fi
 done
+
+# Add vagrant user to sudo group
+usermod -aG sudo vagrant
