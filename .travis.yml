@@ -13,9 +13,10 @@ env:
     - OS_ARCH: linux_amd64
   jobs:
     - BOX: ubuntu-1804
-    - BOX: ubuntu-1604
+    # - BOX: ubuntu-1604
     - BOX: debian-10
     - BOX: debian-9
+    - BOX: centos-7
 
 
 before_install:

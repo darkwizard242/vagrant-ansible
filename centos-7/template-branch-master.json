@@ -2,37 +2,23 @@
    "variables":{
       "cloud_token":"{{ env `VAGRANT_CLOUD_TOKEN` }}",
       "version":"1.0.{{timestamp}}",
-      "release_description":"Latest kernel and package updates."
+      "release_description":"CentOS 7 Vagrant box with Ansible pre-installed and ready to use."
    },
    "builders":[
       {
          "type":"virtualbox-iso",
          "boot_command":[
-            "<esc><wait>",
-            "install <wait>",
-            "auto <wait>",
-            "console-setup/ask_detect=false <wait>",
-            "debconf/frontend=noninteractive <wait>",
-            "debian-installer=en_US <wait>",
-            "fb=false <wait>",
-            "kbd-chooser/method=us <wait>",
-            "keyboard-configuration/xkb-keymap=us <wait>",
-            "locale=en_US <wait>",
-            "netcfg/get_domain=debian9.com <wait>",
-            "netcfg/get_hostname=ansible <wait>",
-            "grub-installer/bootdev=/dev/sda <wait>",
-            " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
-            "<enter><wait>"
+            "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
          ],
          "boot_wait":"10s",
          "disk_size":40960,
-         "guest_os_type":"Debian_64",
+         "guest_os_type":"RedHat_64",
          "headless":true,
          "http_directory":"http",
          "iso_urls":[
-            "https://cdimage.debian.org/cdimage/archive/9.12.0/amd64/iso-cd/debian-9.12.0-amd64-netinst.iso"
+            "http://mirror.cogentco.com/pub/linux/centos/7.8.2003/isos/x86_64/CentOS-7-x86_64-Minimal-2003.iso"
          ],
-         "iso_checksum":"sha256:3c47f64693435b0b42b6ef59624edbffa7c4004317d9f9a3f04ecb6a4e30f191",
+         "iso_checksum":"sha256:659691c28a0e672558b003d223f83938f254b39875ee7559d1a4a14c79173193",
          "ssh_username":"vagrant",
          "ssh_password":"password",
          "ssh_port":22,
@@ -40,7 +26,7 @@
          "shutdown_command":"echo 'vagrant'|sudo -S shutdown -P now",
          "guest_additions_path":"VBoxGuestAdditions_{{.Version}}.iso",
          "virtualbox_version_file":".vbox_version",
-         "vm_name":"ansibledebian9",
+         "vm_name":"ansiblecentos7",
          "vboxmanage":[
             [
                "modifyvm",
@@ -67,12 +53,10 @@
          "type":"shell",
          "execute_command":"echo 'password' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
          "inline":[
-            "sudo apt-get update",
-            "sudo apt-get upgrade -y",
-            "/home/vagrant/mods/01-init.sh",
-            "/home/vagrant/mods/02-vagrant_init.sh",
-            "/home/vagrant/mods/03-ansible.sh install",
-            "mods/cleanup.sh"
+           "sudo /home/vagrant/mods/01-init.sh",
+           "sudo /home/vagrant/mods/02-vagrant_init.sh",
+           "sudo /home/vagrant/mods/03-ansible.sh install",
+           "sudo /home/vagrant/mods/cleanup.sh"
          ]
       }
    ],
@@ -81,11 +65,11 @@
          {
             "type":"vagrant",
             "compression_level":"9",
-            "output":"output/ansibledebian9.box"
+            "output":"output/ansiblecentos7.box"
          },
          {
             "type":"vagrant-cloud",
-            "box_tag":"darkwizard242/ansibledebian9",
+            "box_tag":"darkwizard242/ansiblecentos7",
             "access_token":"{{user `cloud_token`}}",
             "version":"{{user `version`}}",
             "version_description":"{{user `release_description`}}"

@@ -1,0 +1,68 @@
+{
+   "variables":{
+      "version":""
+   },
+   "builders":[
+      {
+         "type":"virtualbox-iso",
+         "boot_command":[
+            "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+         ],
+         "boot_wait":"10s",
+         "disk_size":40960,
+         "guest_os_type":"RedHat_64",
+         "headless":true,
+         "http_directory":"http",
+         "iso_urls":[
+            "http://mirror.cogentco.com/pub/linux/centos/7.8.2003/isos/x86_64/CentOS-7-x86_64-Minimal-2003.iso"
+         ],
+         "iso_checksum":"sha256:659691c28a0e672558b003d223f83938f254b39875ee7559d1a4a14c79173193",
+         "ssh_username":"vagrant",
+         "ssh_password":"password",
+         "ssh_port":22,
+         "ssh_wait_timeout":"2000s",
+         "shutdown_command":"echo 'vagrant'|sudo -S shutdown -P now",
+         "guest_additions_path":"VBoxGuestAdditions_{{.Version}}.iso",
+         "virtualbox_version_file":".vbox_version",
+         "vm_name":"ansiblecentos7",
+         "vboxmanage":[
+            [
+               "modifyvm",
+               "{{.Name}}",
+               "--memory",
+               "2048"
+            ],
+            [
+               "modifyvm",
+               "{{.Name}}",
+               "--cpus",
+               "1"
+            ]
+         ]
+      }
+   ],
+   "provisioners":[
+      {
+         "type":"file",
+         "source":"mods",
+         "destination":"/home/vagrant/"
+      },
+      {
+         "type":"shell",
+         "execute_command":"echo 'password' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+         "inline":[
+            "sudo /home/vagrant/mods/01-init.sh",
+            "sudo /home/vagrant/mods/02-vagrant_init.sh",
+            "sudo /home/vagrant/mods/03-ansible.sh install",
+            "sudo /home/vagrant/mods/cleanup.sh"
+         ]
+      }
+   ],
+   "post-processors":[
+      {
+         "type":"vagrant",
+         "compression_level":"9",
+         "output":"output/ansiblecentos7.box"
+      }
+   ]
+}
