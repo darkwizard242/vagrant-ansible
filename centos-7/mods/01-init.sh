@@ -13,7 +13,8 @@ sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
 
 
 # Install necessary libraries for guest additions and Vagrant NFS Share
-libraries="linux-headers-$(uname -r) build-essential dkms nfs-common"
+# took out linux-headers-$(uname -r) from libraries list
+libraries="build-essential dkms nfs-common"
 for library in $libraries;
 do
   if yum list installed "$library" &> /dev/null;
