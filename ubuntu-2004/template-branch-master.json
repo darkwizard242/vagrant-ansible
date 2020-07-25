@@ -26,6 +26,7 @@
          "ssh_port":22,
          "ssh_wait_timeout":"2000s",
          "ssh_handshake_attempts": "200",
+         "memory": 2048,
          "shutdown_command":"echo 'vagrant'|sudo -S shutdown -P now",
          "guest_additions_path":"VBoxGuestAdditions_{{.Version}}.iso",
          "virtualbox_version_file":".vbox_version",
