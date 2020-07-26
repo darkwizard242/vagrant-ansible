@@ -1,0 +1,13 @@
+#cloud-config
+autoinstall:
+    version: 1
+    identity:
+      hostname: ansible.ubuntu2004.local
+      password: '$1$jel0jtzU$LyasQ7wZHhXJAN32rNSZ3.'
+      username: vagrant
+    locale: en_US
+    keyboard:
+      layout: en
+      variant: us
+    ssh:
+      install-server: true

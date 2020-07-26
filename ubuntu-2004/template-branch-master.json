@@ -2,43 +2,47 @@
    "variables":{
       "cloud_token":"{{ env `VAGRANT_CLOUD_TOKEN` }}",
       "version":"1.0.{{timestamp}}",
-      "release_description":"Latest kernel and package updates."
+      "release_description":"Ubuntu 20.04 Vagrant box with Ansible pre-installed and ready to use."
    },
    "builders":[
       {
          "type":"virtualbox-iso",
          "boot_command":[
-            "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+            "<enter><enter><f6><esc><wait> ",
+            "autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/",
+            "<enter>"
          ],
-         "boot_wait":"10s",
+         "boot_wait":"5s",
          "disk_size":40960,
-         "guest_os_type":"RedHat_64",
+         "guest_os_type":"Ubuntu_64",
          "headless":true,
          "http_directory":"http",
          "iso_urls":[
-            "http://mirror.cogentco.com/pub/linux/centos/7.8.2003/isos/x86_64/CentOS-7-x86_64-Minimal-2003.iso"
+            "https://releases.ubuntu.com/20.04/ubuntu-20.04-live-server-amd64.iso"
          ],
-         "iso_checksum":"sha256:659691c28a0e672558b003d223f83938f254b39875ee7559d1a4a14c79173193",
+         "iso_checksum":"sha256:caf3fd69c77c439f162e2ba6040e9c320c4ff0d69aad1340a514319a9264df9f",
          "ssh_username":"vagrant",
-         "ssh_password":"password",
+         "ssh_password":"vagrant",
          "ssh_port":22,
-         "ssh_wait_timeout":"2000s",
+         "ssh_wait_timeout":"3000s",
+         "ssh_handshake_attempts": "200",
+         "memory": 2048,
          "shutdown_command":"echo 'vagrant'|sudo -S shutdown -P now",
          "guest_additions_path":"VBoxGuestAdditions_{{.Version}}.iso",
          "virtualbox_version_file":".vbox_version",
-         "vm_name":"ansiblecentos7",
+         "vm_name":"ansibleubuntu2004",
          "vboxmanage":[
             [
                "modifyvm",
                "{{.Name}}",
                "--memory",
-               "2048"
+               "2560"
             ],
             [
                "modifyvm",
                "{{.Name}}",
                "--cpus",
-               "1"
+               "2"
             ]
          ]
       }
@@ -51,12 +55,14 @@
       },
       {
          "type":"shell",
-         "execute_command":"echo 'password' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+         "execute_command":"echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
          "inline":[
-           "sudo /home/vagrant/mods/01-init.sh",
-           "sudo /home/vagrant/mods/02-vagrant_init.sh",
-           "sudo /home/vagrant/mods/03-ansible.sh install",
-           "sudo /home/vagrant/mods/cleanup.sh"
+            "sudo apt-get update",
+            "sudo apt-get upgrade -y",
+            "/home/vagrant/mods/01-init.sh",
+            "/home/vagrant/mods/02-vagrant_init.sh",
+            "/home/vagrant/mods/03-ansible.sh install",
+            "/home/vagrant/mods/cleanup.sh"
          ]
       }
    ],
@@ -65,11 +71,11 @@
          {
             "type":"vagrant",
             "compression_level":"9",
-            "output":"output/ansiblecentos7.box"
+            "output":"output/ansibleubuntu2004.box"
          },
          {
             "type":"vagrant-cloud",
-            "box_tag":"darkwizard242/ansiblecentos7",
+            "box_tag":"darkwizard242/ansibleubuntu2004",
             "access_token":"{{user `cloud_token`}}",
             "version":"{{user `version`}}",
             "version_description":"{{user `release_description`}}"

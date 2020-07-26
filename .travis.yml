@@ -12,6 +12,7 @@ env:
     - BUILDER_VERSION: 1.6.0
     - OS_ARCH: linux_amd64
   jobs:
+    # - BOX: ubuntu-2004
     - BOX: ubuntu-1804
     # - BOX: ubuntu-1604
     - BOX: debian-10
@@ -21,7 +22,7 @@ env:
 
 before_install:
   - sudo apt-get update
-  - sudo apt-get install wget unzip software-properties-common linux-headers-5.0.0-1031-gcp -y
+  - sudo apt-get install wget unzip software-properties-common linux-headers-$(uname -r) -y
 
 install:
   - echo -e "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian bionic contrib" | sudo tee -a /etc/apt/sources.list.d/virtualbox.list
